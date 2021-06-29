@@ -1,1 +1,1 @@
-ls -mtF
+ls -pmtU

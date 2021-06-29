@@ -1,2 +1,1 @@
-#!/bin/sh
-git ls-files --others -i --exclude-standard
+git status -s --ignored | grep '!!' | sed 's/!! //'
