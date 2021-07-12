@@ -6,11 +6,10 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:10:57 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/12 12:22:03 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/12 15:51:52 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 
 int	ft_strlen(char *str)
@@ -45,6 +44,20 @@ int	ft_strslen(char **strs)
 	return (c);
 }
 
+char	*str_join2(int size, char **strs, char *sep)
+{
+	char	*res;
+
+	res = malloc(ft_strslen(strs) + 1 + ft_strlen(sep) * size - 1
+			* sizeof (char));
+	if (res == NULL || size == 0)
+	{
+		res[0] = '\0';
+		return (res);
+	}
+	return (res);
+}
+
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
 	char	*res;
@@ -54,36 +67,20 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 
 	i = 0;
 	k = 0;
-	res = malloc(ft_strslen(strs) + 1 + ft_strlen(sep) * size - 1 * sizeof (char));
-	if (res == NULL || size == 0)
-	{
-		res[0] = '\n';
-		return (res);
-	}
-	while (strs[i])
+	res = str_join2(size, strs, sep);
+	while (strs[i] && res[0])
 	{
 		j = 0;
 		while (strs[i][j])
-		{
-			res[k] = strs[i][j];
-			k++;
-			j++;
-		}
+			res[k++] = strs[i][j++];
 		j = 0;
 		i++;
-		while (sep[j])
+		if (i < size)
 		{
-			res[k] = sep[j];
-			k++;
-			j++;
-		}
+			while (sep[j])
+				res[k++] = sep[j++];
+		}	
 	}
 	res[k] = '\0';
 	return (res);
-}
-
-int	main(int argc, char **argv)
-{
-	(void) argc;
-	printf("%s\n",ft_strjoin(4, argv + 1, "/"));
 }
