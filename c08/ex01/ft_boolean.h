@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atoi.c                                             :+:      :+:    :+:   */
+/*   ft_boolean.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 14:53:49 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/09 15:09:43 by tsiguenz         ###   ########.fr       */
+/*   Created: 2021/07/12 21:36:16 by tsiguenz          #+#    #+#             */
+/*   Updated: 2021/07/12 22:24:57 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef FT_BOOLEAN_H
+# define FT_BOOLEAN_H
+# define EVEN_MSG "I have an even number of arguments."
+# define EVEN(nbr) nbr % 2
+# define ODD_MSG "I have an odd number of arguments."
+# define SUCCESS 0
+# define FALSE 0
+# define TRUE 1
+# include <unistd.h>
+typedef int	t_bool;
 
-int	ft_atoi(char *str)
-{
-	int	i;
-	int res;
+void	ft_putstr(char *str);
+t_bool	ft_is_even(int nbr);
 
-	res = 0;
-	i = 0;
-	while (str[i])
-	{
-		res = res * 10 + str[i] - 48;
-		i++;
-	}
-	return (res);
-}
-
-int	main()
-{
-	printf("%d\n", ft_atoi("42"));
-}
+#endif
