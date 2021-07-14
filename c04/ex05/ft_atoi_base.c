@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/07 09:33:58 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/14 13:21:57 by tsiguenz         ###   ########.fr       */
+/*   Created: 2021/07/14 13:22:41 by tsiguenz          #+#    #+#             */
+/*   Updated: 2021/07/14 16:55:50 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-void	ft_putchar(char c)
+int	ft_strlen(char *str)
 {
-	write(1, &c, 1);
-}
-
-unsigned int	ft_strlen(char *str)
-{
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
+}
+
+int	ft_in_base(char c, char *base)
+{
+	while (*base)
+	{
+		if (c == *base)
+			return (1);
+		base++;
+	}
+	return (0);
 }
 
 int	check_base(char *base)
@@ -53,29 +57,41 @@ int	check_base(char *base)
 	return (1);
 }
 
-void	ft_putnbr_base(int nbr, char *base)
+void	ft_clean_str(char **str, int *neg)
 {
-	long long	div;
-	long		nb;
+	while ((**str >= 9 && **str <= 13) || **str == ' ')
+		(*str)++;
+	while (**str == '-' || **str == '+')
+	{
+		if (**str == '-')
+			*neg *= -1;
+		(*str)++;
+	}
+}
 
-	nb = nbr;
-	div = 1;
+int	ft_atoi_base(char *str, char *base)
+{
+	int	res;
+	int	i;
+	int	j;
+	int	negative;
+
+	i = 0;
+	res = 0;
+	negative = 1;
+	ft_clean_str(&str, &negative);
 	if (!check_base(base))
-		return ;
-	if (nb < 0)
+		return (0);
+	while (ft_in_base(str[i], base))
 	{
-		ft_putchar('-');
-		nb = nb * -1;
+		j = 0;
+		while (base[++j])
+		{
+			if (base[j] == str[i])
+				break ;
+		}
+		res = res * ft_strlen(base) + j;
+		i++;
 	}
-	while (nb / div > ft_strlen(base) - 1)
-	{	
-		div = div * ft_strlen(base);
-	}
-	while (nb / div != nb)
-	{
-		ft_putchar (base[nb / div]);
-		nb = nb % div;
-		div = div / ft_strlen(base);
-	}
-	ft_putchar(base[nb]);
+	return (res * negative);
 }

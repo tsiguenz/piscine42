@@ -1,5 +1,0 @@
-Credentials cache: API:BE59DE47-FFDA-4705-A635-A39D0A258D38
-        Principal: tsiguenz@42.FR
-
-  Issued                Expires               Principal
-Jun 28 17:37:25 2021  Jul  5 17:37:17 2021  krbtgt/42.FR@42.FR
