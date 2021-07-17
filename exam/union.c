@@ -1,65 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_params.c                                   :+:      :+:    :+:   */
+/*   union.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/08 13:25:03 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/15 17:21:23 by tsiguenz         ###   ########.fr       */
+/*   Created: 2021/07/16 13:36:38 by tsiguenz          #+#    #+#             */
+/*   Updated: 2021/07/16 14:32:04 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	ft_strcmp(char *s1, char *s2)
+int	deja_vu(char *str, char c, int pos)
 {
 	int	i;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	i = pos - 1;
+	while (i >= 0)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
+		if (str[i] == c)
+			return (1);
+		i--;
 	}
 	return (0);
 }
 
-void	ft_putstr(char *str)
+void	ft_union(char *str1, char *str2)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (str[i])
+	j = 0;
+	while (str1[i])
+	{
+		if (!deja_vu(str1, str1[i], i))
+			write(1, &str1[i], 1);
 		i++;
-	write(1, str, i);
-	write(1, "\n", 1);
+	}
+	while (str2[j])
+	{
+		if (!deja_vu(str2, str2[j], j) && !deja_vu(str1, str2[j], i))
+			write(1, &str2[j], 1);
+		j++;
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = i + 1;
-		while (j < argc)
-		{
-			if (ft_strcmp(argv[i], argv[j]) > 0)
-			{
-				tmp = argv[i];
-				argv[i] = argv[j];
-				argv[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	while (++i < argc)
-		ft_putstr(argv[i]);
+	if (argc == 3)
+		ft_union(argv[1], argv[2]);
+	write(1, "\n", 1);
 }
