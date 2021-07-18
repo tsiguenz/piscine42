@@ -6,7 +6,7 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:10:57 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/12 15:51:52 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/18 20:16:18 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,14 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	}
 	res[k] = '\0';
 	return (res);
+}
+
+#include <stdio.h>
+
+char *ft_strjoin(int size, char **strs, char *sep);
+
+int	main(int argc, char **argv)
+{
+	printf("./ex03/output___said___this___is___a___success :\n");
+	printf("%s\n",  ft_strjoin(argc, argv, "___"));
 }

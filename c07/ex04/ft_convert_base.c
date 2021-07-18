@@ -6,7 +6,7 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:40:06 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/16 10:35:25 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/18 19:41:54 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_lenbase(int nbr, char *base)
 void	put(char *res, long nb, int is_negative, char *base_to)
 {
 	long	div;
-	int	i;
+	int		i;
 
 	div = 1;
 	i = is_negative;
@@ -67,7 +67,7 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	nb = ft_atoi_base(nbr, base_from);
 	res = malloc(ft_lenbase(nb, base_to) * sizeof (char));
 	if (res == NULL || !check_base(base_from) || !check_base(base_to))
-        return (NULL);
+		return (NULL);
 	if (nb < 0)
 	{
 		nb = nb * -1;
@@ -77,13 +77,4 @@ char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 	if (is_negative == 1)
 		res[0] = '-';
 	return (res);
-}
-
-#include <stdio.h>
-
-char *ft_convert_base(char *nbr, char *base_from, char *base_to);
-
-int	main(void)
-{
-	printf("%s\n", ft_convert_base("abc", "0123456789", "0123456789"));
 }

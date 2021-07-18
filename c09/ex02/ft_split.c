@@ -6,10 +6,11 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 10:22:45 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/18 19:39:54 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/18 19:35:50 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 
 int	is_separator(char c, char *sep)
