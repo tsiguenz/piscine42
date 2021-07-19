@@ -6,7 +6,7 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 10:10:57 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/18 20:16:18 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/19 11:07:19 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,75 +22,49 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-int	ft_strslen(char **strs)
+char	*ft_strcat(char *dest, char *src)
 {
 	int	i;
 	int	j;
-	int	c;
 
 	i = 0;
-	j = 0;
-	c = 0;
-	while (strs[i])
-	{
-		while (strs[i][j])
-		{
-			c++;
-			j++;
-		}
-		j = 0;
+	while (dest[i])
 		i++;
-	}
-	return (c);
-}
-
-char	*str_join2(int size, char **strs, char *sep)
-{
-	char	*res;
-
-	res = malloc(ft_strslen(strs) + 1 + ft_strlen(sep) * size - 1
-			* sizeof (char));
-	if (res == NULL || size == 0)
+	j = 0;
+	while (src[j])
 	{
-		res[0] = '\0';
-		return (res);
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
-	return (res);
+	dest[i] = '\0';
+	return (dest);
 }
 
 char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	char	*res;
+	char	*dest;
 	int		i;
 	int		j;
-	int		k;
 
 	i = 0;
-	k = 0;
-	res = str_join2(size, strs, sep);
-	while (strs[i] && res[0])
+	j = 0;
+	while (i < size)
+		j += ft_strlen(strs[i++]);
+	if (size > 0)
+		j += ft_strlen(sep) * (size - 1);
+	dest = malloc(sizeof(char) * (j + 1));
+	if (dest == NULL)
+		return (NULL);
+	dest[0] = '\0';
+	i = 0;
+	while (i < size)
 	{
-		j = 0;
-		while (strs[i][j])
-			res[k++] = strs[i][j++];
-		j = 0;
+		ft_strcat(dest, strs[i]);
+		if (i != size - 1)
+			ft_strcat(dest, sep);
 		i++;
-		if (i < size)
-		{
-			while (sep[j])
-				res[k++] = sep[j++];
-		}	
 	}
-	res[k] = '\0';
-	return (res);
-}
-
-#include <stdio.h>
-
-char *ft_strjoin(int size, char **strs, char *sep);
-
-int	main(int argc, char **argv)
-{
-	printf("./ex03/output___said___this___is___a___success :\n");
-	printf("%s\n",  ft_strjoin(argc, argv, "___"));
+	dest[j] = '\0';
+	return (dest);
 }

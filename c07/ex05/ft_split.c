@@ -6,7 +6,7 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 10:22:45 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/18 19:39:54 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/19 14:00:23 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ char	**ft_split(char *str, char *charset)
 		}
 		i++;
 	}
-	tab[size] = "0";
+	tab[size] = 0;
 	return (tab);
 }
