@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_any.c                                           :+:      :+:    :+:   */
+/*   do_op.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 16:28:18 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/19 22:42:54 by tsiguenz         ###   ########.fr       */
+/*   Created: 2021/07/20 14:16:08 by tsiguenz          #+#    #+#             */
+/*   Updated: 2021/07/20 15:22:10 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_any(char **tab, int(*f)(char*))
-{
-	int	i;
+#ifndef DO_OP_H
+# define DO_OP_H
+# include <unistd.h>
 
-	i = 0;
-	while (tab[i])
-	{
-		if (f(tab[i]) != 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+int		ft_atoi(char *str);
+void	ft_sum(int a, int b);
+void	ft_minus(int a, int b);
+void	ft_div(int a, int b);
+void	ft_mult(int a, int b);
+void	ft_modulo(int a, int b);
+void	ft_putnbr(int nbr);
+void	ft_putchar(char c);
+
+#endif

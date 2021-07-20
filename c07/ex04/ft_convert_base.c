@@ -6,75 +6,87 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 17:40:06 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/18 19:41:54 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/19 19:28:38 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
-
-int	ft_atoi_base(char *str, char *base);
-int	ft_strlen(char *str);
-int	check_base(char *base);
-
-int	ft_lenbase(int nbr, char *base)
+int	ft_strlen(char *str)
 {
 	int	i;
-	int	size;
+	int	j;
 
-	size = ft_strlen(base);
-	i = 2;
-	if (size == 0)
-		return (0);
-	if (nbr < 0)
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		++i;
-		nbr = nbr * -1;
-	}
-	while (nbr > ft_strlen(base))
-	{
-		nbr = nbr / size;
 		i++;
 	}
 	return (i);
 }
 
-void	put(char *res, long nb, int is_negative, char *base_to)
+int	ft_is_in_the_base(char c, char *base)
 {
-	long	div;
-	int		i;
+	int	i;
 
-	div = 1;
-	i = is_negative;
-	while (nb / div > ft_strlen(base_to) - 1)
-		div = div * ft_strlen(base_to);
-	while (nb / div != nb)
+	i = 0;
+	while (base[i])
 	{
-		res[i++] = base_to[nb / div];
-		nb = nb % div;
-		div = div / ft_strlen(base_to);
+		if (c == base[i])
+			return (i);
+		i++;
 	}
-	res[i++] = base_to[nb];
-	res[i] = '\0';
+	return (-1);
 }
 
-char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
+int	ft_check_base(char *base)
 {
-	long	nb;
-	char	*res;
-	int		is_negative;
+	int	i;
+	int	j;
 
-	is_negative = 0;
-	nb = ft_atoi_base(nbr, base_from);
-	res = malloc(ft_lenbase(nb, base_to) * sizeof (char));
-	if (res == NULL || !check_base(base_from) || !check_base(base_to))
-		return (NULL);
-	if (nb < 0)
+	i = 0;
+	j = i + 1;
+	if (!base[0] || !base[1])
+		return (1);
+	while (base[i])
 	{
-		nb = nb * -1;
-		is_negative = 1;
+		while (base[j])
+		{
+			if (base[i] == base[j])
+				return (1);
+			j++;
+		}
+		if (base[i] == '-' || base[i] == '+')
+			return (1);
+		if ((base[i] <= 13 && base[i] >= 9) || base[i] == 32)
+			return (1);
+		i++;
+		j = i + 1;
 	}
-	put(res, nb, is_negative, base_to);
-	if (is_negative == 1)
-		res[0] = '-';
-	return (res);
+	return (0);
+}
+
+int	ft_atoi_base(char *str, char *base)
+{
+	int		signe;
+	long	entier;
+	int		i;
+
+	signe = 1;
+	entier = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	{
+		i++;
+	}
+	while (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			signe = signe * -1;
+		i++;
+	}
+	while (str[i] && ft_is_in_the_base(str[i], base) != -1)
+	{
+		entier = entier * ft_strlen(base) + ft_is_in_the_base(str[i], base);
+		i++;
+	}
+	return (entier * signe);
 }

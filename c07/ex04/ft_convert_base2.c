@@ -6,92 +6,83 @@
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 18:12:39 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/15 17:47:40 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/19 19:42:23 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
-{
-	int	i;
+#include <stdlib.h>
 
+int	ft_atoi_base(char *str, char *base);
+int	ft_check_base(char *base);
+int	ft_strlen(char *str);
+
+int	ft_calcul_size(int nb, char *base_to)
+{
+	int	size;
+	int	size_base;
+
+	size = 0;
+	size_base = 0;
+	while (base_to[size_base])
+	{
+		size_base++;
+	}
+	if (nb < 0)
+	{
+		size = size + 1;
+		nb = nb * -1;
+	}
+	while (nb / size_base != 0)
+	{
+		size++;
+		nb = nb / size_base;
+	}
+	size++;
+	return (size);
+}
+
+void	ft_remplissage(long nb, int size, char *base_to, char *final_chaine)
+{
+	int	size_base;
+	int	div;
+	int	i;
+	int	signe;
+
+	signe = 0;
+	if (nb < 0)
+	{
+		signe = 1;
+		nb = nb * -1;
+		final_chaine[0] = '-';
+	}
 	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	size_base = ft_strlen(base_to);
+	div = size_base;
+	i = size - 1;
+	final_chaine[size + 1] = '\0';
+	while (i >= signe)
+	{
+		final_chaine[i] = base_to[nb % div];
+		nb = nb / div;
+		i--;
+	}
+	return ;
 }
 
-int	ft_in_base(char c, char *base)
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to)
 {
-	while (*base)
-	{
-		if (c == *base)
-			return (1);
-		base++;
-	}
-	return (0);
-}
+	long	entier;
+	int		size;
+	char	*final_chaine;
 
-int	check_base(char *base)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 1;
-	if (base[0] == '\0' || base[1] == '\0')
-		return (0);
-	while (base[j])
-	{
-		if (base[j] == '-' || base[j] == '+' || (base[j] >= 6 && base[j] <= 13)
-			|| base[j] == 32)
-			return (0);
-		while (base[i])
-		{
-			if (base[i] == base[j])
-				return (0);
-			i++;
-		}
-		j++;
-		i = j + 1;
-	}
-	return (1);
-}
-
-void	ft_clean_str(char **str, int *neg)
-{
-	while ((**str >= 9 && **str <= 13) || **str == ' ')
-		(*str)++;
-	while (**str == '-' || **str == '+')
-	{
-		if (**str == '-')
-			*neg *= -1;
-		(*str)++;
-	}
-}
-
-int	ft_atoi_base(char *str, char *base)
-{
-	int	res;
-	int	i;
-	int	j;
-	int	negative;
-
-	i = 0;
-	res = 0;
-	negative = 1;
-	ft_clean_str(&str, &negative);
-	if (!check_base(base))
-		return (0);
-	while (ft_in_base(str[i], base))
-	{
-		j = -1;
-		while (base[++j])
-		{
-			if (base[j] == str[i])
-				break ;
-		}
-		res = res * ft_strlen(base) + j;
-		i++;
-	}
-	return (res * negative);
+	if ((ft_check_base(base_from) == 1) || (ft_check_base(base_to) == 1))
+		return (NULL);
+	entier = ft_atoi_base(nbr, base_from);
+	size = ft_calcul_size(entier, base_to);
+	final_chaine = malloc((size + 1) * sizeof(char));
+	if (final_chaine == NULL)
+		return (final_chaine);
+	final_chaine[size] = '\0';
+	ft_remplissage(entier, size, base_to, final_chaine);
+	return (final_chaine);
 }

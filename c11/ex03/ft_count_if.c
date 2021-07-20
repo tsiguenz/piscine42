@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_any.c                                           :+:      :+:    :+:   */
+/*   ft_count_if.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/19 16:28:18 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/19 22:42:54 by tsiguenz         ###   ########.fr       */
+/*   Created: 2021/07/19 22:44:07 by tsiguenz          #+#    #+#             */
+/*   Updated: 2021/07/19 23:16:30 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_any(char **tab, int(*f)(char*))
+int	ft_count_if(char **tab, int length, int(*f)(char*))
 {
 	int	i;
+	int	res;
 
 	i = 0;
-	while (tab[i])
+	res = 0;
+	while (i < length)
 	{
-		if (f(tab[i]) != 0)
-			return (1);
+		if (f(tab[i]) == 1)
+			res++;
 		i++;
 	}
-	return (0);
+	return (res);
 }
