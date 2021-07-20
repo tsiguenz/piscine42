@@ -1,30 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_string_tab.c                               :+:      :+:    :+:   */
+/*   ft_advanced_sort_string_tab.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsiguenz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 15:49:22 by tsiguenz          #+#    #+#             */
-/*   Updated: 2021/07/20 18:46:11 by tsiguenz         ###   ########.fr       */
+/*   Updated: 2021/07/20 21:25:03 by tsiguenz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	res;
-	int	i;
-
-	res = 0;
-	i = 0;
-	while ((s1[i] || s2[i]) && res == 0)
-	{
-		if (s1[i] != s2[i])
-			res = s1[i] - s2[i];
-		i++;
-	}
-	return (res);
-}
 
 int	ft_count_str(char **strs)
 {
@@ -36,7 +20,7 @@ int	ft_count_str(char **strs)
 	return (i);
 }
 
-void	ft_ultimate_sort_string_tab(char **tab, int(*cmp)(char *, char *))
+void	ft_advanced_sort_string_tab(char **tab, int(*cmp)(char *, char *))
 {
 	int		i;
 	int		j;
@@ -58,5 +42,4 @@ void	ft_ultimate_sort_string_tab(char **tab, int(*cmp)(char *, char *))
 		}
 		i++;
 	}
-	tab[ft_count_str(tab)] = 0;
 }
