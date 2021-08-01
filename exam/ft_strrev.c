@@ -49,6 +49,7 @@ char	*ft_strrev(char *str)
 
 int	main(void)
 {
-	printf("\n%s\n", ft_strrev("salut ca va"));
+	char	str[] = "Salut comment tu vas";
+	printf("%s\n", ft_strrev(str));
 	return (0);
 }
