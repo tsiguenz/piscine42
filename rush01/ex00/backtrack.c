@@ -25,3 +25,4 @@ int	backtrack(int **tab, int *args, int n)
 	tab[y][x] = 0;
 	return (0);
 }
+
